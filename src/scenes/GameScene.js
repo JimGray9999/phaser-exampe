@@ -18,7 +18,8 @@ export default class GameScene extends Phaser.Scene
         this.stars = undefined
         this.bombSpawner = undefined
         
-        this.gameOver = false
+		this.gameOver = false
+		this.isPaused = false
     }
 
     preload(){
@@ -85,6 +86,18 @@ export default class GameScene extends Phaser.Scene
 		{
 			this.player.setVelocityY(-330)
 		}
+		// TODO figure out how to keep paused then resume
+		if (this.cursors.space.isDown ) {
+			if (!this.isPaused) {
+				console.log('space pressed to pause')
+				this.isPaused = true
+				this.physics.pause()
+			} else if (this.isPaused) {
+				console.log('space pressed to resume')
+				this.isPaused = false
+				this.physics.resume()
+			}
+		} 
     }
 
     hitBomb(player, bomb)
