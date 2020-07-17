@@ -164,6 +164,7 @@ export default class GameScene extends Phaser.Scene
 		{
 			//  A new batch of stars to collect
 			this.stars.children.iterate((child) => {
+				// @ts-ignore
 				child.enableBody(true, child.x, 0, true, true)
 			})
 		}
