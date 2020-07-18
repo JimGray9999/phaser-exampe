@@ -55,8 +55,12 @@ export default class GameScene extends Phaser.Scene
 
         this.physics.add.overlap(this.player, this.stars, this.collectStar, null, this)
         
-        this.cursors = this.input.keyboard.createCursorKeys()
-    }
+		this.cursors = this.input.keyboard.createCursorKeys()
+		
+		this.pauseText = this.add.text(400,300, 'PAUSED',
+			{ fontFamily: 'Arial', fontSize: 48, color: 'red' }
+		).setVisible(false)
+	}	
 
     update(){
         if (this.gameOver){
@@ -86,14 +90,13 @@ export default class GameScene extends Phaser.Scene
 		{
 			this.player.setVelocityY(-330)
 		}
-		// TODO figure out how to keep paused then resume
 		if (this.cursors.space.isDown ) {
 			if (!this.isPaused) {
-				console.log('space pressed to pause')
+				this.pauseText.setVisible(true)
 				this.isPaused = true
 				this.physics.pause()
 			} else if (this.isPaused) {
-				console.log('space pressed to resume')
+				this.pauseText.setVisible(false)
 				this.isPaused = false
 				this.physics.resume()
 			}
